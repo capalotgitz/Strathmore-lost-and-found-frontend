@@ -18,6 +18,59 @@ body {
   padding: 0 1rem;
 }
 
+/* Logo Styles */
+.strathmore-logo {
+  height: 2.5rem;
+  width: auto;
+  object-fit: contain;
+}
+
+.hero-strathmore-logo {
+  height: 4rem;
+  width: auto;
+  object-fit: contain;
+  margin-bottom: 1rem;
+}
+
+.footer-strathmore-logo {
+  height: 2rem;
+  width: auto;
+  object-fit: contain;
+  margin-bottom: 0.5rem;
+}
+
+.header-center-logo {
+  height: 2rem;
+  width: auto;
+  object-fit: contain;
+  margin-right: 0.5rem;
+}
+
+.logo-container {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.footer-logo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.hero-logo {
+  text-align: center;
+  margin-bottom: 1rem;
+}
+
+.header-logo-center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 1;
+}
+
 /* Header */
 .header {
   background: white;
@@ -44,15 +97,15 @@ body {
 }
 
 .logo-icon {
-  width: 2.5rem;
-  height: 2.5rem;
+  width: 2rem;
+  height: 2rem;
   background: #2563eb;
-  border-radius: 0.5rem;
+  border-radius: 0.375rem;
   display: flex;
   align-items: center;
   justify-content: center;
   color: white;
-  font-size: 1.25rem;
+  font-size: 1rem;
 }
 
 .logo-text h1 {
@@ -999,6 +1052,32 @@ body {
     flex-direction: column;
     gap: 1rem;
   }
+
+  .logo-container {
+    gap: 0.25rem;
+  }
+
+  .strathmore-logo {
+    height: 2rem;
+  }
+
+  .hero-strathmore-logo {
+    height: 3rem;
+  }
+
+  .header-logo-center {
+    flex-direction: column;
+    gap: 0.25rem;
+  }
+
+  .header-center-logo {
+    height: 1.5rem;
+    margin-right: 0;
+  }
+
+  .page-title {
+    font-size: 1rem;
+  }
 }
 
 @media (max-width: 480px) {
@@ -1026,6 +1105,18 @@ body {
   .footer-content {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+
+  .strathmore-logo {
+    height: 1.75rem;
+  }
+
+  .hero-strathmore-logo {
+    height: 2.5rem;
+  }
+
+  .footer-strathmore-logo {
+    height: 1.5rem;
   }
 }
 
