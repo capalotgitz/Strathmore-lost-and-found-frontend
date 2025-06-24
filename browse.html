@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Browse Items - Strathmore Lost & Found</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo-section">
+                    <div class="logo-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <span class="logo-text-simple">Strathmore Lost & Found</span>
+                </a>
+                <nav class="nav-menu">
+                    <a href="index.html" class="nav-link">Home</a>
+                    <a href="browse.html" class="nav-link active">Browse Items</a>
+                    <a href="report.html" class="nav-link">Report Item</a>
+                </nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="index.html" class="mobile-nav-link">Home</a>
+        <a href="browse.html" class="mobile-nav-link">Browse Items</a>
+        <a href="report.html" class="mobile-nav-link">Report Item</a>
+    </div>
+
+    <div class="browse-page">
+        <div class="container">
+            <!-- Page Header -->
+            <div class="page-header">
+                <h1>Browse Lost & Found Items</h1>
+                <p>Search through all reported lost and found items on campus</p>
+            </div>
+
+            <!-- Search and Filters -->
+            <div class="filters-section">
+                <div class="filters-grid">
+                    <div class="search-filter">
+                        <div class="search-bar">
+                            <i class="fas fa-search search-icon"></i>
+                            <input type="text" placeholder="Search items..." class="search-input" id="searchInput">
+                        </div>
+                    </div>
+                    <div class="filter-group">
+                        <select class="filter-select" id="categoryFilter">
+                            <option value="">All Categories</option>
+                            <option value="electronics">Electronics</option>
+                            <option value="bags">Bags & Backpacks</option>
+                            <option value="books">Books & Stationery</option>
+                            <option value="keys">Keys</option>
+                            <option value="clothing">Clothing</option>
+                            <option value="jewelry">Jewelry & Accessories</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <select class="filter-select" id="typeFilter">
+                            <option value="">All Items</option>
+                            <option value="lost">Lost Items</option>
+                            <option value="found">Found Items</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Results Header -->
+            <div class="results-header">
+                <p class="results-count">Showing <span id="itemCount">6</span> items</p>
+                <div class="sort-group">
+                    <select class="sort-select" id="sortSelect">
+                        <option value="newest">Newest First</option>
+                        <option value="oldest">Oldest First</option>
+                        <option value="most-viewed">Most Viewed</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Items Grid -->
+            <div class="browse-items-grid" id="browseItemsGrid">
+                <!-- Items will be populated by JavaScript -->
+            </div>
+
+            <!-- Load More -->
+            <div class="load-more">
+                <button class="btn btn-outline" id="loadMoreBtn">Load More Items</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="browse.js"></script>
+</body>
+</html>

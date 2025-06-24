@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Strathmore Lost & Found</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="logo-section">
+                    <div class="logo-icon">
+                        <i class="fas fa-search"></i>
+                    </div>
+                    <div class="logo-text">
+                        <h1>Strathmore Lost & Found</h1>
+                        <p>University Campus</p>
+                    </div>
+                </div>
+                <nav class="nav-menu">
+                    <a href="#browse" class="nav-link">Browse Items</a>
+                    <a href="report.html" class="nav-link">Report Item</a>
+                    <a href="#contact" class="nav-link">Contact</a>
+                </nav>
+                <button class="mobile-menu-btn" id="mobileMenuBtn">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="#browse" class="mobile-nav-link">Browse Items</a>
+        <a href="report.html" class="mobile-nav-link">Report Item</a>
+        <a href="#contact" class="mobile-nav-link">Contact</a>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h2>Lost Something? We're Here to Help!</h2>
+                <p>Strathmore University's central hub for lost and found items. Search, report, and recover your belongings with ease.</p>
+                
+                <!-- Search Bar -->
+                <div class="search-container">
+                    <div class="search-bar">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" placeholder="Search for lost items (e.g., iPhone, backpack, keys...)" class="search-input">
+                        <button class="search-btn">Search</button>
+                    </div>
+                </div>
+
+                <!-- Action Buttons -->
+                <div class="action-buttons">
+                    <a href="report.html?type=lost" class="btn btn-primary">Report Lost Item</a>
+                    <a href="report.html?type=found" class="btn btn-secondary">Report Found Item</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Stats Section -->
+    <section class="stats">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stat-value">1,247</div>
+                    <div class="stat-label">Items Recovered</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stat-value">89</div>
+                    <div class="stat-label">Active Listings</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="stat-value">25+</div>
+                    <div class="stat-label">Campus Locations</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Recent Items -->
+    <section class="recent-items" id="browse">
+        <div class="container">
+            <div class="section-header">
+                <h3>Recent Items</h3>
+                <p>Latest lost and found reports from the Strathmore community</p>
+            </div>
+
+            <div class="items-grid" id="itemsGrid">
+                <!-- Items will be populated by JavaScript -->
+            </div>
+
+            <div class="view-all">
+                <a href="browse.html" class="btn btn-outline">View All Items</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer" id="contact">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Strathmore Lost & Found</h4>
+                    <p>Helping the Strathmore University community recover lost items since 2024.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="browse.html">Browse Items</a></li>
+                        <li><a href="report.html">Report Item</a></li>
+                        <li><a href="#how-it-works">How It Works</a></li>
+                        <li><a href="#contact">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact Info</h4>
+                    <div class="contact-info">
+                        <p>Security Office, Main Campus</p>
+                        <p>Phone: +254 703 034 000</p>
+                        <p>Email: security@strathmore.edu</p>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Strathmore University. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
