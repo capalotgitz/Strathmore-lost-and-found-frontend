@@ -13,22 +13,27 @@
         <div class="container">
             <div class="header-content">
                 <div class="logo-section">
-                    <div class="logo-container">
-                        <img src="assets/strathmore-logo.png" alt="Strathmore University" class="strathmore-logo">
-                        <div class="logo-icon">
-                            <i class="fas fa-search"></i>
-                        </div>
+                    <div class="logo-icon">
+                        <i class="fas fa-search"></i>
                     </div>
                     <div class="logo-text">
                         <h1>Strathmore Lost & Found</h1>
                         <p>University Campus</p>
                     </div>
                 </div>
-                <nav class="nav-menu">
-                    <a href="#browse" class="nav-link">Browse Items</a>
-                    <a href="report.html" class="nav-link">Report Item</a>
-                    <a href="#contact" class="nav-link">Contact</a>
+
+                <nav class="nav-menu" id="navMenu">
+                    <div class="nav-links" id="navLinks">
+                        <a href="browse.html" class="nav-link">Browse Items</a>
+                        <a href="report.html" class="nav-link">Report Item</a>
+                        <a href="#contact" class="nav-link">Contact</a>
+                    </div>
+                    
+                    <div class="auth-section" id="authSection">
+                        <!-- Login/Logout buttons will be inserted here by JavaScript -->
+                    </div>
                 </nav>
+
                 <button class="mobile-menu-btn" id="mobileMenuBtn">
                     <i class="fas fa-bars"></i>
                 </button>
@@ -38,117 +43,310 @@
 
     <!-- Mobile Menu -->
     <div class="mobile-menu" id="mobileMenu">
-        <a href="#browse" class="mobile-nav-link">Browse Items</a>
+        <a href="browse.html" class="mobile-nav-link">Browse Items</a>
         <a href="report.html" class="mobile-nav-link">Report Item</a>
         <a href="#contact" class="mobile-nav-link">Contact</a>
+        <div class="mobile-auth" id="mobileAuth">
+            <!-- Mobile auth buttons will be inserted here -->
+        </div>
     </div>
 
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-logo">
-                    <img src="assets/strathmore-logo.png" alt="Strathmore University" class="hero-strathmore-logo">
-                </div>
-                <h2>Lost Something? We're Here to Help!</h2>
-                <p>Strathmore University's central hub for lost and found items. Search, report, and recover your belongings with ease.</p>
-                
-                <!-- Search Bar -->
-                <div class="search-container">
-                    <div class="search-bar">
-                        <i class="fas fa-search search-icon"></i>
-                        <input type="text" placeholder="Search for lost items (e.g., iPhone, backpack, keys...)" class="search-input">
-                        <button class="search-btn">Search</button>
+    <!-- Main Content -->
+    <main id="mainContent">
+        <!-- Login/Signup Section (shown when not logged in) -->
+        <section class="auth-section-main" id="authSectionMain">
+            <div class="container">
+                <div class="auth-container">
+                    <div class="auth-header">
+                        <h1>Welcome to Strathmore Lost & Found</h1>
+                        <p>Sign in to your account or create a new one to get started</p>
                     </div>
-                </div>
 
-                <!-- Action Buttons -->
-                <div class="action-buttons">
-                    <a href="report.html?type=lost" class="btn btn-primary">Report Lost Item</a>
-                    <a href="report.html?type=found" class="btn btn-secondary">Report Found Item</a>
+                    <div class="auth-card">
+                        <div class="auth-tabs">
+                            <button class="tab-btn active" data-tab="login">Login</button>
+                            <button class="tab-btn" data-tab="signup">Sign Up</button>
+                        </div>
+
+                        <!-- Login Form -->
+                        <div class="tab-content active" id="loginTab">
+                            <form id="loginForm" class="auth-form">
+                                <div class="form-header">
+                                    <h2>Sign In</h2>
+                                    <p>Welcome back to your account</p>
+                                </div>
+
+                                <div class="error-message" id="loginError" style="display: none;"></div>
+
+                                <div class="form-group">
+                                    <label for="loginEmail">Email Address</label>
+                                    <input type="email" id="loginEmail" placeholder="your.email@strathmore.edu" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="loginPassword">Password</label>
+                                    <div class="password-input">
+                                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
+                                        <button type="button" class="password-toggle" data-target="loginPassword">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="auth-btn" id="loginBtn">
+                                    <span class="btn-text">Sign In</span>
+                                    <span class="btn-loading" style="display: none;">Signing In...</span>
+                                </button>
+
+                                <div class="auth-switch">
+                                    Don't have an account? 
+                                    <button type="button" class="switch-btn" data-tab="signup">Sign up here</button>
+                                </div>
+                            </form>
+                        </div>
+
+                        <!-- Signup Form -->
+                        <div class="tab-content" id="signupTab">
+                            <form id="signupForm" class="auth-form">
+                                <div class="form-header">
+                                    <h2>Create Account</h2>
+                                    <p>Join the Strathmore community</p>
+                                </div>
+
+                                <div class="error-message" id="signupError" style="display: none;"></div>
+
+                                <div class="form-group">
+                                    <label for="signupName">Full Name</label>
+                                    <input type="text" id="signupName" placeholder="John Doe" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="signupEmail">Email Address</label>
+                                    <input type="email" id="signupEmail" placeholder="your.email@strathmore.edu" required>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="signupPhone">Phone Number (Optional)</label>
+                                    <input type="tel" id="signupPhone" placeholder="+254 700 000 000">
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="signupPassword">Password</label>
+                                    <div class="password-input">
+                                        <input type="password" id="signupPassword" placeholder="Create a strong password" required>
+                                        <button type="button" class="password-toggle" data-target="signupPassword">
+                                            <i class="fas fa-eye"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <button type="submit" class="auth-btn" id="signupBtn">
+                                    <span class="btn-text">Create Account</span>
+                                    <span class="btn-loading" style="display: none;">Creating Account...</span>
+                                </button>
+
+                                <div class="auth-switch">
+                                    Already have an account? 
+                                    <button type="button" class="switch-btn" data-tab="login">Sign in here</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+
+                    <div class="auth-footer">
+                        <p>By signing up, you agree to our 
+                            <a href="/terms">Terms of Service</a> and 
+                            <a href="/privacy">Privacy Policy</a>
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-users"></i>
+        <!-- Dashboard Section (shown when logged in) -->
+        <section class="dashboard-section" id="dashboardSection" style="display: none;">
+            <!-- Welcome Section -->
+            <div class="hero-section">
+                <div class="container">
+                    <div class="hero-content">
+                        <div class="welcome-badge" id="welcomeBadge">
+                            👋 Welcome back, <span id="userName"></span>!
+                        </div>
+                        <h1>Your Lost & Found<br><span class="text-blue">Dashboard</span></h1>
+                        <p>Manage your lost and found items, search for missing belongings, and help others in the Strathmore community.</p>
+
+                        <div class="action-buttons">
+                            <a href="report.html" class="btn btn-primary">
+                                Report Lost Item
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                            <a href="browse.html" class="btn btn-secondary">
+                                Browse Found Items
+                                <i class="fas fa-arrow-right"></i>
+                            </a>
+                        </div>
+
+                        <div class="trust-indicators">
+                            <div class="indicator">
+                                <i class="fas fa-shield-alt"></i>
+                                <span>University Verified</span>
+                            </div>
+                            <div class="indicator">
+                                <i class="fas fa-users"></i>
+                                <span>Active Community</span>
+                            </div>
+                        </div>
                     </div>
-                    <div class="stat-value">1,247</div>
-                    <div class="stat-label">Items Recovered</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-clock"></i>
-                    </div>
-                    <div class="stat-value">89</div>
-                    <div class="stat-label">Active Listings</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-icon">
-                        <i class="fas fa-map-marker-alt"></i>
-                    </div>
-                    <div class="stat-value">25+</div>
-                    <div class="stat-label">Campus Locations</div>
                 </div>
             </div>
-        </div>
-    </section>
 
-    <!-- Recent Items -->
-    <section class="recent-items" id="browse">
+            <!-- Features Section -->
+            <section class="features-section">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>Platform Features</h2>
+                        <p>Explore the tools and features available to help you find your lost items.</p>
+                    </div>
+                    <div class="features-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <h3>Smart Search</h3>
+                            <p>Advanced search filters to help you find your lost items quickly and efficiently.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-bell"></i>
+                            </div>
+                            <h3>Instant Notifications</h3>
+                            <p>Get notified immediately when someone reports finding your lost item.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <h3>Secure & Private</h3>
+                            <p>Your personal information is protected with university-grade security.</p>
+                        </div>
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </div>
+                            <h3>Campus-Wide Coverage</h3>
+                            <p>Covers all Strathmore University buildings, dormitories, and outdoor areas.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- How It Works Section -->
+            <section class="how-it-works">
+                <div class="container">
+                    <div class="section-header">
+                        <h2>How It Works</h2>
+                        <p>Follow these simple steps to recover your lost items or help others find theirs.</p>
+                    </div>
+                    <div class="steps-grid">
+                        <div class="step">
+                            <div class="step-number">1</div>
+                            <h3>Report Your Item</h3>
+                            <p>Lost something? Report it with details and photos to help others identify it.</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">2</div>
+                            <h3>Community Helps</h3>
+                            <p>Fellow students and staff look out for your item across campus.</p>
+                        </div>
+                        <div class="step">
+                            <div class="step-number">3</div>
+                            <h3>Get Reunited</h3>
+                            <p>Receive notifications when your item is found and arrange safe pickup.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </section>
+    </main>
+
+    <!-- Contact Section -->
+    <section class="contact-section" id="contact">
         <div class="container">
             <div class="section-header">
-                <h3>Recent Items</h3>
-                <p>Latest lost and found reports from the Strathmore community</p>
+                <h2>Need Help?</h2>
+                <p>Our security team is here to assist you with any questions or concerns.</p>
             </div>
-
-            <div class="items-grid" id="itemsGrid">
-                <!-- Items will be populated by JavaScript -->
-            </div>
-
-            <div class="view-all">
-                <a href="browse.html" class="btn btn-outline">View All Items</a>
+            <div class="contact-grid">
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-phone"></i>
+                    </div>
+                    <h3>Call Us</h3>
+                    <p>+254 703 034 000</p>
+                    <span>Mon-Fri, 8AM-6PM</span>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-envelope"></i>
+                    </div>
+                    <h3>Email Us</h3>
+                    <p>security@strathmore.edu</p>
+                    <span>We'll respond within 24 hours</span>
+                </div>
+                <div class="contact-card">
+                    <div class="contact-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <h3>Visit Us</h3>
+                    <p>Security Office</p>
+                    <span>Main Campus, Ground Floor</span>
+                </div>
             </div>
         </div>
     </section>
 
     <!-- Footer -->
-    <footer class="footer" id="contact">
+    <footer class="footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <div class="footer-logo">
-                        <img src="assets/strathmore-logo.png" alt="Strathmore University" class="footer-strathmore-logo">
-                        <h4>Strathmore Lost & Found</h4>
+                        <div class="logo-icon">
+                            <i class="fas fa-search"></i>
+                        </div>
+                        <div>
+                            <h4>Strathmore Lost & Found</h4>
+                            <p>University Campus</p>
+                        </div>
                     </div>
-                    <p>Helping the Strathmore University community recover lost items since 2024.</p>
+                    <p>Helping the Strathmore University community recover lost items since 2025. Safe, secure, and trusted by thousands of students and staff.</p>
+                    <div class="footer-badges">
+                        <span class="badge">🔒 University Verified</span>
+                    </div>
                 </div>
                 <div class="footer-section">
                     <h4>Quick Links</h4>
-                    <ul>
-                        <li><a href="browse.html">Browse Items</a></li>
-                        <li><a href="report.html">Report Item</a></li>
-                        <li><a href="#how-it-works">How It Works</a></li>
+                    <ul id="footerLinks">
+                        <li><a href="/how-it-works">How It Works</a></li>
                         <li><a href="#contact">Contact Us</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
                     <h4>Contact Info</h4>
                     <div class="contact-info">
-                        <p>Security Office, Main Campus</p>
-                        <p>Phone: +254 703 034 000</p>
-                        <p>Email: security@strathmore.edu</p>
+                        <p><i class="fas fa-map-marker-alt"></i> Security Office, Main Campus</p>
+                        <p><i class="fas fa-phone"></i> +254 703 034 000</p>
+                        <p><i class="fas fa-envelope"></i> security@strathmore.edu</p>
                     </div>
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2024 Strathmore University. All rights reserved.</p>
+                <p>&copy; 2025 Strathmore University. All rights reserved.</p>
+                <div class="footer-links">
+                    <a href="/privacy">Privacy Policy</a>
+                    <a href="/terms">Terms of Service</a>
+                    <a href="/support">Support</a>
+                </div>
             </div>
         </div>
     </footer>

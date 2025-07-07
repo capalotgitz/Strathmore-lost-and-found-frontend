@@ -1,45 +1,23 @@
-// Sample data for recent items
-const recentItems = [
-  {
-    id: 1,
-    title: "iPhone 14 Pro",
-    type: "lost",
-    location: "Library - 2nd Floor",
-    date: "2 hours ago",
-    category: "Electronics",
-    image: "https://images.unsplash.com/photo-1592750475338-74b7b21085ab?w=400&h=300&fit=crop",
-  },
-  {
-    id: 2,
-    title: "Blue Backpack",
-    type: "found",
-    location: "Student Center",
-    date: "5 hours ago",
-    category: "Bags",
-    image: "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?w=400&h=300&fit=crop",
-  },
-  {
-    id: 3,
-    title: "Car Keys (Toyota)",
-    type: "lost",
-    location: "Parking Lot B",
-    date: "1 day ago",
-    category: "Keys",
-    image: "https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&h=300&fit=crop",
-  },
-  {
-    id: 4,
-    title: "Textbook - Calculus",
-    type: "found",
-    location: "Mathematics Building",
-    date: "2 days ago",
-    category: "Books",
-    image: "https://images.unsplash.com/photo-1544716278-ca5e3f4abd8c?w=400&h=300&fit=crop",
-  },
-]
+// Global variables
+let currentUser = null
 
-// Mobile menu functionality
+// DOM elements
+const authSectionMain = document.getElementById("authSectionMain")
+const dashboardSection = document.getElementById("dashboardSection")
+const authSection = document.getElementById("authSection")
+const mobileAuth = document.getElementById("mobileAuth")
+const navLinks = document.getElementById("navLinks")
+const footerLinks = document.getElementById("footerLinks")
+
+// Initialize the application
 document.addEventListener("DOMContentLoaded", () => {
+  initializeApp()
+  setupEventListeners()
+  checkUserLogin()
+})
+
+function initializeApp() {
+  // Mobile menu functionality
   const mobileMenuBtn = document.getElementById("mobileMenuBtn")
   const mobileMenu = document.getElementById("mobileMenu")
 
@@ -49,119 +27,319 @@ document.addEventListener("DOMContentLoaded", () => {
     })
   }
 
-  // Populate recent items
-  populateRecentItems()
+  // Tab switching
+  const tabBtns = document.querySelectorAll(".tab-btn")
+  const tabContents = document.querySelectorAll(".tab-content")
 
-  // Search functionality
-  setupSearch()
-})
-
-function populateRecentItems() {
-  const itemsGrid = document.getElementById("itemsGrid")
-  if (!itemsGrid) return
-
-  itemsGrid.innerHTML = ""
-
-  recentItems.forEach((item) => {
-    const itemCard = createItemCard(item)
-    itemsGrid.appendChild(itemCard)
-  })
-}
-
-function createItemCard(item) {
-  const card = document.createElement("div")
-  card.className = "item-card"
-  card.onclick = () => showItemDetails(item)
-
-  card.innerHTML = `
-        <div class="item-header">
-            <div class="item-meta">
-                <span class="badge badge-${item.type}">${item.type === "lost" ? "Lost" : "Found"}</span>
-                <span class="item-date">${item.date}</span>
-            </div>
-            <img src="${item.image}" alt="${item.title}" class="item-image" onerror="this.src='https://via.placeholder.com/400x200?text=No+Image'">
-            <h3 class="item-title">${item.title}</h3>
-        </div>
-        <div class="item-content">
-            <div class="item-details">
-                <div class="item-location">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span>${item.location}</span>
-                </div>
-            </div>
-            <div class="item-footer">
-                <span class="item-category">${item.category}</span>
-            </div>
-        </div>
-    `
-
-  return card
-}
-
-function setupSearch() {
-  const searchInput = document.querySelector(".search-input")
-  if (!searchInput) return
-
-  searchInput.addEventListener("keypress", function (e) {
-    if (e.key === "Enter") {
-      performSearch(this.value)
-    }
-  })
-
-  const searchBtn = document.querySelector(".search-btn")
-  if (searchBtn) {
-    searchBtn.addEventListener("click", () => {
-      const searchValue = searchInput.value
-      performSearch(searchValue)
+  tabBtns.forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const targetTab = this.getAttribute("data-tab")
+      switchTab(targetTab)
     })
+  })
+
+  // Switch buttons in forms
+  const switchBtns = document.querySelectorAll(".switch-btn")
+  switchBtns.forEach((btn) => {
+    btn.addEventListener("click", function () {
+      const targetTab = this.getAttribute("data-tab")
+      switchTab(targetTab)
+    })
+  })
+
+  // Password toggle functionality
+  const passwordToggles = document.querySelectorAll(".password-toggle")
+  passwordToggles.forEach((toggle) => {
+    toggle.addEventListener("click", function () {
+      const targetId = this.getAttribute("data-target")
+      const targetInput = document.getElementById(targetId)
+      const icon = this.querySelector("i")
+
+      if (targetInput.type === "password") {
+        targetInput.type = "text"
+        icon.className = "fas fa-eye-slash"
+      } else {
+        targetInput.type = "password"
+        icon.className = "fas fa-eye"
+      }
+    })
+  })
+}
+
+function setupEventListeners() {
+  // Login form
+  const loginForm = document.getElementById("loginForm")
+  if (loginForm) {
+    loginForm.addEventListener("submit", handleLogin)
+  }
+
+  // Signup form
+  const signupForm = document.getElementById("signupForm")
+  if (signupForm) {
+    signupForm.addEventListener("submit", handleSignup)
   }
 }
 
-function performSearch(query) {
-  if (query.trim()) {
-    // In a real application, this would make an API call
-    console.log("Searching for:", query)
-    // Redirect to browse page with search query
-    window.location.href = `browse.html?search=${encodeURIComponent(query)}`
+function switchTab(tabName) {
+  // Update tab buttons
+  const tabBtns = document.querySelectorAll(".tab-btn")
+  tabBtns.forEach((btn) => {
+    btn.classList.remove("active")
+    if (btn.getAttribute("data-tab") === tabName) {
+      btn.classList.add("active")
+    }
+  })
+
+  // Update tab content
+  const tabContents = document.querySelectorAll(".tab-content")
+  tabContents.forEach((content) => {
+    content.classList.remove("active")
+  })
+
+  const targetContent = document.getElementById(tabName + "Tab")
+  if (targetContent) {
+    targetContent.classList.add("active")
+  }
+
+  // Clear any error messages
+  clearErrors()
+}
+
+function handleLogin(e) {
+  e.preventDefault()
+
+  const email = document.getElementById("loginEmail").value
+  const password = document.getElementById("loginPassword").value
+  const loginBtn = document.getElementById("loginBtn")
+  const btnText = loginBtn.querySelector(".btn-text")
+  const btnLoading = loginBtn.querySelector(".btn-loading")
+
+  // Clear previous errors
+  clearErrors()
+
+  // Validation
+  if (!email || !password) {
+    showError("loginError", "Please fill in all fields")
+    return
+  }
+
+  // Show loading state
+  btnText.style.display = "none"
+  btnLoading.style.display = "inline"
+  loginBtn.disabled = true
+
+  // Simulate login process
+  setTimeout(() => {
+    const userData = {
+      id: 1,
+      name: email.split("@")[0],
+      email: email,
+    }
+
+    // Save user data
+    localStorage.setItem("user_data", JSON.stringify(userData))
+    currentUser = userData
+
+    // Reset form
+    document.getElementById("loginForm").reset()
+
+    // Update UI
+    updateUIForLoggedInUser()
+
+    // Reset button state
+    btnText.style.display = "inline"
+    btnLoading.style.display = "none"
+    loginBtn.disabled = false
+  }, 1000)
+}
+
+function handleSignup(e) {
+  e.preventDefault()
+
+  const name = document.getElementById("signupName").value
+  const email = document.getElementById("signupEmail").value
+  const phone = document.getElementById("signupPhone").value
+  const password = document.getElementById("signupPassword").value
+  const signupBtn = document.getElementById("signupBtn")
+  const btnText = signupBtn.querySelector(".btn-text")
+  const btnLoading = signupBtn.querySelector(".btn-loading")
+
+  // Clear previous errors
+  clearErrors()
+
+  // Validation
+  if (!name || !email || !password) {
+    showError("signupError", "Please fill in all required fields")
+    return
+  }
+
+  // Show loading state
+  btnText.style.display = "none"
+  btnLoading.style.display = "inline"
+  signupBtn.disabled = true
+
+  // Simulate signup process
+  setTimeout(() => {
+    const userData = {
+      id: 1,
+      name: name,
+      email: email,
+      phone: phone,
+    }
+
+    // Save user data
+    localStorage.setItem("user_data", JSON.stringify(userData))
+    currentUser = userData
+
+    // Reset form
+    document.getElementById("signupForm").reset()
+
+    // Update UI
+    updateUIForLoggedInUser()
+
+    // Reset button state
+    btnText.style.display = "inline"
+    btnLoading.style.display = "none"
+    signupBtn.disabled = false
+  }, 1000)
+}
+
+function handleLogout() {
+  localStorage.removeItem("user_data")
+  currentUser = null
+  updateUIForLoggedOutUser()
+}
+
+function checkUserLogin() {
+  const userData = localStorage.getItem("user_data")
+  if (userData) {
+    try {
+      currentUser = JSON.parse(userData)
+      updateUIForLoggedInUser()
+    } catch (e) {
+      localStorage.removeItem("user_data")
+      updateUIForLoggedOutUser()
+    }
+  } else {
+    updateUIForLoggedOutUser()
   }
 }
 
-function showItemDetails(item) {
-  // In a real application, this would navigate to a detailed view
-  alert(
-    `Item Details:\n\nTitle: ${item.title}\nType: ${item.type}\nLocation: ${item.location}\nCategory: ${item.category}\nDate: ${item.date}`,
-  )
+function updateUIForLoggedInUser() {
+  // Hide auth section, show dashboard
+  authSectionMain.style.display = "none"
+  dashboardSection.style.display = "block"
+
+  // Update welcome message
+  const userName = document.getElementById("userName")
+  if (userName && currentUser) {
+    userName.textContent = currentUser.name
+  }
+
+  // Update header auth section
+  updateHeaderAuth(true)
+
+  // Update footer links
+  updateFooterLinks(true)
 }
 
-// Smooth scrolling for anchor links
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault()
-    const target = document.querySelector(this.getAttribute("href"))
-    if (target) {
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      })
+function updateUIForLoggedOutUser() {
+  // Show auth section, hide dashboard
+  authSectionMain.style.display = "block"
+  dashboardSection.style.display = "none"
+
+  // Update header auth section
+  updateHeaderAuth(false)
+
+  // Update footer links
+  updateFooterLinks(false)
+}
+
+function updateHeaderAuth(isLoggedIn) {
+  if (isLoggedIn && currentUser) {
+    // Desktop auth section
+    authSection.innerHTML = `
+            <div class="user-info">
+                <i class="fas fa-user"></i>
+                <span>${currentUser.name}</span>
+            </div>
+            <button class="logout-btn" onclick="handleLogout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        `
+
+    // Mobile auth section
+    mobileAuth.innerHTML = `
+            <div class="mobile-user-info">
+                <i class="fas fa-user"></i>
+                <span>${currentUser.name}</span>
+            </div>
+            <button class="mobile-logout-btn" onclick="handleLogout()">
+                <i class="fas fa-sign-out-alt"></i>
+                <span>Logout</span>
+            </button>
+        `
+
+    // Show navigation links
+    navLinks.style.display = "flex"
+  } else {
+    // Desktop auth section
+    authSection.innerHTML = ""
+
+    // Mobile auth section
+    mobileAuth.innerHTML = ""
+
+    // Hide navigation links
+    navLinks.style.display = "none"
+  }
+}
+
+function updateFooterLinks(isLoggedIn) {
+  if (isLoggedIn) {
+    footerLinks.innerHTML = `
+            <li><a href="browse.html">Browse Items</a></li>
+            <li><a href="report.html">Report Item</a></li>
+            <li><a href="/how-it-works">How It Works</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        `
+  } else {
+    footerLinks.innerHTML = `
+            <li><a href="/how-it-works">How It Works</a></li>
+            <li><a href="#contact">Contact Us</a></li>
+        `
+  }
+}
+
+function showError(elementId, message) {
+  const errorElement = document.getElementById(elementId)
+  if (errorElement) {
+    errorElement.textContent = message
+    errorElement.style.display = "block"
+  }
+}
+
+function clearErrors() {
+  const errorElements = document.querySelectorAll(".error-message")
+  errorElements.forEach((element) => {
+    element.style.display = "none"
+    element.textContent = ""
+  })
+}
+
+// Utility functions
+function debounce(func, wait) {
+  let timeout
+  return function executedFunction(...args) {
+    const later = () => {
+      clearTimeout(timeout)
+      func(...args)
     }
-  })
-})
+    clearTimeout(timeout)
+    timeout = setTimeout(later, wait)
+  }
+}
 
-// Add loading animation for images
-document.addEventListener("DOMContentLoaded", () => {
-  const images = document.querySelectorAll("img")
-  images.forEach((img) => {
-    img.addEventListener("load", function () {
-      this.style.opacity = "1"
-    })
-
-    img.addEventListener("error", function () {
-      this.src = "https://via.placeholder.com/400x200?text=No+Image"
-      this.style.opacity = "1"
-    })
-
-    // Set initial opacity
-    img.style.opacity = "0"
-    img.style.transition = "opacity 0.3s ease"
-  })
-})
+// Export functions for global access
+window.handleLogout = handleLogout
+window.switchTab = switchTab
